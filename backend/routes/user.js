@@ -1,7 +1,7 @@
 import { Router } from "express";
 const userRouter = Router()
 import * as z from "zod";
-import { User } from "../db";
+import { User } from "../db.js";
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
 
