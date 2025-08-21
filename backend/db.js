@@ -11,8 +11,9 @@ async function connectToDb(){
         process.exit(1)
     }
 }
+
 const userSchema = new Schema({
-    fistName: {
+    firstName: {
         type: String,
         required: true,
         trim: true,
@@ -40,9 +41,24 @@ const userSchema = new Schema({
     }  
 })
 
+const accountsSchema = new Schema({
+	userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+	balance: {
+        type: Number,
+        required: true,
+        min: 0
+    }
+})
+
 const User = mongoose.model('User', userSchema)
+const Account = mongoose.model('Account', accountsSchema)
 
 export {
     User,
+    Account,
     connectToDb
 }
