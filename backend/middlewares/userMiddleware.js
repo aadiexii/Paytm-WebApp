@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 
 function authmiddleware(req, res, next){
-    const authorizationHeader = req.headers.Authorization
+    const authorizationHeader = req.headers['authorization']
+    console.log(authorizationHeader)
 
     if(!authorizationHeader || !authorizationHeader.startsWith("Bearer ")){
         res.status(411).json({
@@ -18,7 +19,7 @@ function authmiddleware(req, res, next){
        next();
     }catch(e){
         console.error("middlewareError", e.message)
-        res.status(411).json({
+        return res.status(411).json({
             message: "Error Occured while decoding the token"
         })
     }     

@@ -53,7 +53,7 @@ userRouter.post('/signup', async function(req, res) {
 
        const token = jwt.sign({
           userId
-       }, process.env.JWT_KEY, {expiresIn: "1h"})
+       }, process.env.JWT_KEY)
     
        console.log(token)
        res.status(200).json({
@@ -98,12 +98,12 @@ userRouter.post('/signin', async function(req, res) {
     if(match){
         const token = jwt.sign({
             userId: user._id
-        }, process.env.JWT_KEY, {expiresIn: '1h'})
+        }, process.env.JWT_KEY)
             
         res.status(200).json({
         token: token
        })
-       return
+       return 
     }}catch(e){
         console.error(e.message)
         res.status(411).json({
@@ -130,19 +130,27 @@ userRouter.put('/update', authmiddleware, async function(req, res){
         res.status(411).json({
             message: "Info cant be changed due to wrong input"
         })
+        return
      }
      
-     
-     const userId = req.userId
-     const data = validation.data
-     await User.updateOne({ _id: userId}, 
-        {$set: data}
-     )
-     
-    res.status(200).json({
-        message: "Updated Successfully"
-    })
+     try{
+         const userId = req.userId
+         const data = validation.data
+         await User.updateOne({ _id: userId}, 
+            {$set: data}
+         )
+         res.status(200).json({
+             message: "Updated Successfully"
+         })
+     }catch(e){
+         console.error(e.message)
+         return res.status(500).json({
+             message: "Error occurred while updating user"
+         })
+     }
 })
+
+
 
 userRouter.get('/getUsers', authmiddleware, async function(req, res){
     const filter = req.query.filter || ""
