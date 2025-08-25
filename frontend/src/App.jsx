@@ -4,6 +4,7 @@ import Signup from '../src/Routes/Signup.jsx'
 import Signin from '../src/Routes/Signin.jsx'
 import Dashboard from '../src/Routes/Dashboard.jsx'
 import SendMoney from '../src/Routes/SendMoney.jsx'
+import Appbar from '../src/components/Appbar.jsx'
 
 function App() {
   return (
