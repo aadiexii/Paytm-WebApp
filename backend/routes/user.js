@@ -152,7 +152,7 @@ userRouter.put('/update', authmiddleware, async function(req, res){
 
 
 
-userRouter.get('/getUsers', authmiddleware, async function(req, res){
+userRouter.get('/getusers', authmiddleware, async function(req, res){
     const filter = req.query.filter || ""
 
     const users = await User.find({
