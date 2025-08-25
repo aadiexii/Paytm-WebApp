@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const SendMoney = () => {
     const [searchParams] = useSearchParams();
-    const [amount, setAmount] = useState(0);
+    const [transferAmount, setTransferAmount] =  useState("")
     const id = searchParams.get("id")
     const name = searchParams.get("name")
 
@@ -27,13 +27,13 @@ return <div className="flex justify-center h-screen bg-gray-100">
                     <div className="space-y-2">
                     <label
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="amount"
+                        htmlFor="amount"
                     >
                         Amount (in Rs)
                     </label>
                     <input
                         onChange={(e) =>{
-                            setAmount(e.target.value)
+                            setTransferAmount(e.target.value)
                         }}
                         type="number"
                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -44,7 +44,7 @@ return <div className="flex justify-center h-screen bg-gray-100">
                     <button onClick={(e) => {
                         axios.post('http://localhost:3000/api/v1/account/transfer', {
                             transferTo: id,
-                            transferAmount: amount
+                            transferAmount
                         }, {
                           headers: {
                             Authorization: "Bearer " + localStorage.getItem("token") 
