@@ -173,6 +173,12 @@ userRouter.get('/getusers', authmiddleware, async function(req, res){
 })
 
 
+userRouter.get('/me', authmiddleware, async function(req, res){
+    res.status(200).json({
+        message: "You have succesfully logged In"
+    })
+})
+
 export {
     userRouter
 }
